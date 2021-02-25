@@ -1,24 +1,36 @@
 const express = require('express')
+const MongoClient = require('mongodb').MongoClient
 const app = express()
 
 app.use(express.json())
 let movies = []
 
-app.get('/movies/:id',(req,res) => {
+const url = 'mongodb+srv://superadmin:Boom1920020102@cluster0.wl5lq.mongodb.net/buflix?retryWrites=true&w=majority'
+const client = new MongoClient(url,{useNewUrlParser:true})
+let db,moviesCollection
+
+async function connect(){
+    await client.connect()
+    db = client.db('buflix')
+    moviesCollection = db.collection('movies')
+}
+connect()
+app.get('/movies',(req,res) => {
     //input 
-let id = req.params.id
-let movie = {}
+
 
  //process
-movie = movies[id]
+
     
     //output
 res.status(200).json(movie)
 })
 
+app.get('/movies/:id',(req,res) =>{
 
-// POST /movies
-app.post('/movies',(req,res) =>{
+})
+
+app.post('/movies',async(req,res) =>{
 //input
 
 let newtitle = req.body.title
@@ -46,9 +58,8 @@ let movieID = 0
 
 
 //process
-movies.push(newMovie)
-// n-1
-movieID = movies.length - 1 
+const result = await moviesCollection.insertOne(newMovie)
+movieID = result.insertedID
 
 //output
 res.status(201).json(movieID)

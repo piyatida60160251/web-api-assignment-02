@@ -4,15 +4,16 @@ const app = express()
 app.use(express.json())
 let movies = []
 
-app.get('/movies',(req,res) => {
+app.get('/movies/:id',(req,res) => {
     //input 
+let id = req.params.id
+let movie = {}
 
-    
-    //process
-
+ //process
+movie = movies[id]
     
     //output
-res.status(200).json(movies)
+res.status(200).json(movie)
 })
 
 
@@ -26,6 +27,7 @@ let newGenres = req.body.genres
 let newCreators = req.body.newcreators
 let newStars = req.body.stars
 let newRating = req.body.rating
+
 //rating
 //- score
 //- vote
@@ -52,4 +54,4 @@ movieID = movies.length - 1
 res.status(201).json(movieID)
 })
 const port = 3000
-app.listen(port,() => console.log(`Server started at ${port}`))
+app.listen(port,() => console.log(`Server started again at ${port}`))

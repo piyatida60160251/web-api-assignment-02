@@ -1,9 +1,10 @@
 const express = require('express')
 const MongoClient = require('mongodb').MongoClient
+const ObjectID = require('mongodb').ObjectID
 const app = express()
 
 app.use(express.json())
-let movies = []
+
 
 const url = 'mongodb+srv://superadmin:Boom1920020102@cluster0.wl5lq.mongodb.net/buflix?retryWrites=true&w=majority'
 const client = new MongoClient(url,{useNewUrlParser:true})
@@ -17,20 +18,25 @@ async function connect(){
 connect()
 
 app.get('/movies',async(req,res) => {
-    //input 
+})
 
-
- //process
+app.get('/movies/:id',(req,res) =>{
+//input
+let id = req.params.id
+//process
+const movie = await moviesCollection.findOne({_id: ObjectID(id)})
 const cursor = await moviesCollection.find({})
 const result = await cursor.toArray()
     
+
+
     //output
 res.status(200).json(movie)
 })
 
-app.get('/movies/:id',(req,res) =>{
 
-})
+
+
 
 app.post('/movies',async(req,res) =>{
 //input

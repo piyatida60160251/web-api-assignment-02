@@ -15,12 +15,14 @@ async function connect(){
     moviesCollection = db.collection('movies')
 }
 connect()
-app.get('/movies',(req,res) => {
+
+app.get('/movies',async(req,res) => {
     //input 
 
 
  //process
-
+const cursor = await moviesCollection.find({})
+const result = await cursor.toArray()
     
     //output
 res.status(200).json(movie)

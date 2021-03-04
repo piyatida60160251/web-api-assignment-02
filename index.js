@@ -17,7 +17,7 @@ async function connect(){
 }
 connect()
 
-app.get('/book',async(req,res) => {
+app.post('/book',async(req,res) => {
 })
 
 app.get('/book/:id',(req,res) =>{

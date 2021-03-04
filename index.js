@@ -21,9 +21,9 @@ app.post('/book',async(req,res) => {
 })
 
 app.get('/book/:id',(req,res) =>{
-//input
+
 let id = req.params.id
-//process
+
 const book = await bookCollection.findOne({_id: ObjectID(id)})
 const cursor = await bookCollection.find({})
 const result = await cursor.toArray()

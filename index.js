@@ -17,14 +17,14 @@ async function connect(){
 }
 connect()
 
-app.get('/movies',async(req,res) => {
+app.get('/book',async(req,res) => {
 })
 
-app.get('/movies/:id',(req,res) =>{
+app.get('/book/:id',(req,res) =>{
 //input
 let id = req.params.id
 //process
-const movie = await moviesCollection.findOne({_id: ObjectID(id)})
+const book = await moviesCollection.findOne({_id: ObjectID(id)})
 const cursor = await moviesCollection.find({})
 const result = await cursor.toArray()
     
@@ -38,7 +38,7 @@ res.status(200).json(movie)
 
 
 
-app.post('/movies',async(req,res) =>{
+app.post('/book',async(req,res) =>{
 //input
 
 let newtitle = req.body.title

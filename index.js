@@ -8,12 +8,12 @@ app.use(express.json())
 
 const url = 'mongodb+srv://superadmin:Boom1920020102@cluster0.wl5lq.mongodb.net/buflix?retryWrites=true&w=majority'
 const client = new MongoClient(url,{useNewUrlParser:true})
-let db,moviesCollection
+let db,bookCollection
 
 async function connect(){
     await client.connect()
     db = client.db('buflix')
-    moviesCollection = db.collection('movies')
+    bookCollection = db.collection('book')
 }
 connect()
 
@@ -24,14 +24,14 @@ app.get('/book/:id',(req,res) =>{
 //input
 let id = req.params.id
 //process
-const book = await moviesCollection.findOne({_id: ObjectID(id)})
-const cursor = await moviesCollection.find({})
+const book = await bookCollection.findOne({_id: ObjectID(id)})
+const cursor = await bookCollection.find({})
 const result = await cursor.toArray()
     
 
 
     //output
-res.status(200).json(movie)
+res.status(200).json(book)
 })
 
 
@@ -42,35 +42,36 @@ app.post('/book',async(req,res) =>{
 //input
 
 let newtitle = req.body.title
-let newplot = req.body.plot
-let newGenres = req.body.genres
-let newCreators = req.body.newcreators
-let newStars = req.body.stars
-let newRating = req.body.rating
+let newprice = req.body.price
+let newunit = req.body.unit
+let newisbn = req.body.isbn
+let newimageurl = req.body.imageurl
+//let newRating = req.body.rating
 
 //rating
 //- score
 //- vote
 
 //key: value
-let newMovie = {
+let newbook = {
     title: title,
-    plot :newplot,
-    genres:newGenres,
-    creators: newCreators,
-    stars: newStars,
-    rating: newRating
+    price :newprice,
+    unit:newunit,
+    isbn:newisbn,
+    imageurl: newimageurl,
+    //stars: newStars,
+    //rating: newRating
 
 }
 let movieID = 0
 
 
 //process
-const result = await moviesCollection.insertOne(newMovie)
-movieID = result.insertedID
+const result = await bookCollection.insertOne(newbook)
+bookID = result.insertedID
 
 //output
-res.status(201).json(movieID)
+res.status(201).json(bookID)
 })
 const port = 3000
 app.listen(port,() => console.log(`Server started again at ${port}`))

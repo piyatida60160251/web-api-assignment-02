@@ -46,11 +46,9 @@ let newprice = req.body.price
 let newunit = req.body.unit
 let newisbn = req.body.isbn
 let newimageurl = req.body.imageurl
-//let newRating = req.body.rating
 
-//rating
-//- score
-//- vote
+
+
 
 //key: value
 let newbook = {
@@ -59,8 +57,7 @@ let newbook = {
     unit:newunit,
     isbn:newisbn,
     imageurl: newimageurl,
-    //stars: newStars,
-    //rating: newRating
+    
 
 }
 let movieID = 0
